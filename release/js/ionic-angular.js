@@ -1469,9 +1469,9 @@ function($rootScope, $state, $location, $document, $ionicPlatform, $ionicHistory
     }
 
     if (data.url) {
-      // don't let it start with a #, messes with $location.url()
+      // don't let it start with a #!, messes with $location.url()
       if (data.url.indexOf('#') === 0) {
-        data.url = data.url.replace('#', '');
+        data.url = data.url.replace('#!', '');
       }
       if (data.url !== $location.url()) {
         // we've got a good URL, ready GO!
@@ -1538,7 +1538,7 @@ function($rootScope, $state, $location, $document, $ionicPlatform, $ionicHistory
  * $ionicConfigProvider.views.maxCache(10);
  * ```
  *
- * Additionally, each platform can have it's own config within the `$ionicConfigProvider.platform`
+ * Additionally, each platform can have its own config within the `$ionicConfigProvider.platform`
  * property. The config below would only apply to Android devices.
  *
  * ```js
@@ -7952,12 +7952,14 @@ function($scope, $attrs, $ionicSideMenuDelegate, $ionicPlatform, $ionicBody, $io
     var startX = e.gesture.startEvent && e.gesture.startEvent.center &&
       e.gesture.startEvent.center.pageX;
 
-    var dragIsWithinBounds = !shouldOnlyAllowEdgeDrag ||
-      startX <= self.edgeThreshold ||
-      startX >= self.content.element.offsetWidth - self.edgeThreshold;
-
     var backView = $ionicHistory.backView();
     var menuEnabled = enableMenuWithBackViews ? true : !backView;
+    var offsetLeft = !backView ? 0 : 50;
+
+    var dragIsWithinBounds = !shouldOnlyAllowEdgeDrag ||
+        (startX <= self.edgeThreshold && startX >= offsetLeft) ||
+        startX >= self.content.element.offsetWidth - self.edgeThreshold + offsetLeft;
+
     if (!menuEnabled) {
       var currentView = $ionicHistory.currentView() || {};
       return (dragIsWithinBounds && (backView.historyId !== currentView.historyId));
@@ -10608,7 +10610,7 @@ function headerFooterBarDirective(isHeader) {
  * reach to trigger the on-infinite expression. Default: 1%.
  * @param {string=} spinner The {@link ionic.directive:ionSpinner} to show while loading. The SVG
  * {@link ionic.directive:ionSpinner} is now the default, replacing rotating font icons.
- * @param {string=} icon The icon to show while loading. Default: 'ion-load-d'.  This is depreicated
+ * @param {string=} icon The icon to show while loading. Default: 'ion-load-d'.  This is depreciated
  * in favor of the SVG {@link ionic.directive:ionSpinner}.
  * @param {boolean=} immediate-check Whether to check the infinite scroll bounds immediately on load.
  *
@@ -13296,7 +13298,6 @@ function($animate, $timeout, $compile, $ionicSlideBoxDelegate, $ionicHistory, $i
  * @ngdoc directive
  * @name ionSlides
  * @module ionic
- * @delegate ionic.service:$ionicSlideBoxDelegate
  * @restrict E
  * @description
  * The Slides component is a powerful multi-page container where each page can be swiped or dragged between.
