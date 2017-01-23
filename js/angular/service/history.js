@@ -849,9 +849,9 @@ function($rootScope, $state, $location, $document, $ionicPlatform, $ionicHistory
     }
 
     if (data.url) {
-      // don't let it start with a #, messes with $location.url()
+      // don't let it start with a #!, messes with $location.url()
       if (data.url.indexOf('#') === 0) {
-        data.url = data.url.replace('#', '');
+        data.url = data.url.replace('#!', '');
       }
       if (data.url !== $location.url()) {
         // we've got a good URL, ready GO!
