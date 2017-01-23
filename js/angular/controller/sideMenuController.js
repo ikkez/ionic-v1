@@ -384,12 +384,14 @@ function($scope, $attrs, $ionicSideMenuDelegate, $ionicPlatform, $ionicBody, $io
     var startX = e.gesture.startEvent && e.gesture.startEvent.center &&
       e.gesture.startEvent.center.pageX;
 
-    var dragIsWithinBounds = !shouldOnlyAllowEdgeDrag ||
-      startX <= self.edgeThreshold ||
-      startX >= self.content.element.offsetWidth - self.edgeThreshold;
-
     var backView = $ionicHistory.backView();
     var menuEnabled = enableMenuWithBackViews ? true : !backView;
+    var offsetLeft = !backView ? 0 : 50;
+
+    var dragIsWithinBounds = !shouldOnlyAllowEdgeDrag ||
+        (startX <= self.edgeThreshold && startX >= offsetLeft) ||
+        startX >= self.content.element.offsetWidth - self.edgeThreshold + offsetLeft;
+
     if (!menuEnabled) {
       var currentView = $ionicHistory.currentView() || {};
       return (dragIsWithinBounds && (backView.historyId !== currentView.historyId));
