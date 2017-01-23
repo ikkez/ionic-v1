@@ -13,10 +13,10 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom(['METEOR@0.9.0', 'METEOR@1.0']);
 
-  api.use('angular:angular@1.5.3', where);
-  api.use('angular:angular-animate@1.5.3', where);
-  api.use('angular:angular-sanitize@1.5.3', where);
-  api.use('angularui:angular-ui-router@0.2.13_3', where);
+  api.use('angular:angular@1.6.1', where);
+  api.use('angular:angular-animate@1.6.1', where);
+  api.use('angular:angular-sanitize@1.6.1', where);
+  api.use('angularui:angular-ui-router@0.3.2', where);
 
   // In case the Meteor project has the `fastclick` package,
   // Load it first and cancel it (to use Ionic's one)
