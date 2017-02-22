@@ -902,7 +902,7 @@ function($rootScope, $state, $location, $window, $timeout, $ionicViewSwitcher, $
           var viewIds = Object.keys(viewHistory.views);
           viewIds.forEach(function(viewId) {
             var view = viewHistory.views[viewId];
-            if ( view.backViewId === switchToView.viewId ) {
+            if ((view.backViewId === switchToView.viewId) && (view.historyId !== switchToView.historyId)) {
               view.backViewId = null;
             }
           });
@@ -7091,7 +7091,7 @@ IonicModule
           setScrollLock(false);
         }
 
-        if (isDragging) {
+        if (isDragging && isOverscrolling) {
           nativescroll(scrollParent, deltaY - dragOffset * -1);
         }
 

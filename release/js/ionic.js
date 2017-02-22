@@ -3690,6 +3690,11 @@ var wasOrientationChange = false;
 var KEYBOARD_OPEN_CSS = 'keyboard-open';
 
 /**
+ * Timer that adds KEYBOARD_OPEN_CSS class to the body.
+ */
+var keyboardOpenCssTimer;
+
+/**
  * CSS class that indicates a scroll container.
  */
 var SCROLL_CONTAINER_CSS = 'scroll-content';
@@ -4107,6 +4112,7 @@ function keyboardWaitForResize(callback, isOpening) {
  */
 function keyboardHide() {
   clearTimeout(keyboardFocusOutTimer);
+  clearTimeout(keyboardOpenCssTimer);
   //console.log("keyboardHide");
 
   ionic.keyboard.isOpen = false;
@@ -4178,7 +4184,7 @@ function keyboardShow() {
     ionic.trigger('scrollChildIntoView', details, true);
   }
 
-  setTimeout(function(){
+  keyboardOpenCssTimer = setTimeout(function() {
     document.body.classList.add(KEYBOARD_OPEN_CSS);
   }, 400);
 
