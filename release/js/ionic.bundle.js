@@ -9,7 +9,7 @@
  * Copyright 2015 Drifty Co.
  * http://drifty.com/
  *
- * Ionic, v1.3.2
+ * Ionic, v1.3.3
  * A powerful HTML5 mobile app framework.
  * http://ionicframework.com/
  *
@@ -25,7 +25,7 @@
 // build processes may have already created an ionic obj
 window.ionic = window.ionic || {};
 window.ionic.views = {};
-window.ionic.version = '1.3.2';
+window.ionic.version = '1.3.3';
 
 (function (ionic) {
 
@@ -55973,7 +55973,7 @@ angular.module('ui.router.state')
  * Copyright 2015 Drifty Co.
  * http://drifty.com/
  *
- * Ionic, v1.3.2
+ * Ionic, v1.3.3
  * A powerful HTML5 mobile app framework.
  * http://ionicframework.com/
  *
@@ -58631,7 +58631,10 @@ function($rootScope, $ionicBody, $compile, $timeout, $ionicPlatform, $ionicTempl
       }
 
       return $timeout(function() {
-        if (!modalStack.length) {
+        var modalOfTypeExists = modalStack.some(function(modal) {
+          return modal.viewType === self.viewType;
+        });
+        if (!modalOfTypeExists) {
           $ionicBody.removeClass(self.viewType + '-open');
         }
         self.el.classList.add('hide');
@@ -61391,7 +61394,8 @@ function($scope, $element, $attrs, $q, $ionicConfig, $ionicHistory) {
       // to calculate the width of the title
       var children = angular.element(element).children();
       for ( var i = 0; i < children.length; i++ ) {
-        if ( angular.element(children[i]).hasClass('nav-bar-title') ) {
+        var child = angular.element(children[i]);
+        if ( child.hasClass('nav-bar-title') && !child.hasClass('hide') ) {
           element = children[i];
           break;
         }
@@ -68469,7 +68473,7 @@ IonicModule
 
         $scope.$on('scroll.refreshComplete', function() {
           $scope.$evalAsync(function() {
-            if(scrollCtrl.scrollView){
+            if (scrollCtrl.scrollView) {
               scrollCtrl.scrollView.finishPullToRefresh();
             }
           });
